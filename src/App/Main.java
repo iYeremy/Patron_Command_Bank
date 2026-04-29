@@ -9,8 +9,8 @@ import commands.WithdrawCommand;
 
 public class Main {
     public static void main(String[] args) {
-        BankAccount account1 = new BankAccount("Alice", 1000.0);
-        BankAccount account2 = new BankAccount("Bob", 500.0);
+        BankAccount account1 = new BankAccount("Miku", 1000.0);
+        BankAccount account2 = new BankAccount("Pepe", 500.0);
         ATM atm = new ATM();
 
         System.out.println("--- Initial Balances ---");
@@ -18,39 +18,39 @@ public class Main {
         atm.executeOP(new CheckBalanceCommand(account2));
         System.out.println();
 
-        System.out.println("--- Transaction 1: Alice Deposits $200 ---");
-        DepositCommand depositAlice = new DepositCommand(account1, 200.0);
-        atm.executeOP(depositAlice);
+        System.out.println("--- Transaction 1: Miku Deposits $200 ---");
+        DepositCommand depositMiku = new DepositCommand(account1, 200.0);
+        atm.executeOP(depositMiku);
         atm.executeOP(new CheckBalanceCommand(account1));
         System.out.println();
 
-        System.out.println("--- Transaction 2: Bob Withdraws $100 ---");
-        WithdrawCommand withdrawBob = new WithdrawCommand(account2, 100.0);
-        atm.executeOP(withdrawBob);
+        System.out.println("--- Transaction 2: Pepe Withdraws $100 ---");
+        WithdrawCommand withdrawPepe = new WithdrawCommand(account2, 100.0);
+        atm.executeOP(withdrawPepe);
         atm.executeOP(new CheckBalanceCommand(account2));
         System.out.println();
 
-        System.out.println("--- Transaction 3: Alice Transfers $300 to Bob ---");
-        TransferCommand transferAliceToBob = new TransferCommand(account1, account2, 300.0);
-        atm.executeOP(transferAliceToBob);
+        System.out.println("--- Transaction 3: Miku Transfers $300 to Pepe ---");
+        TransferCommand transferMikuToPepe = new TransferCommand(account1, account2, 300.0);
+        atm.executeOP(transferMikuToPepe);
         atm.executeOP(new CheckBalanceCommand(account1));
         atm.executeOP(new CheckBalanceCommand(account2));
         System.out.println();
 
-        System.out.println("--- Transaction 4: Alice Tries to Withdraw $1500 (Insufficient Funds) ---");
-        WithdrawCommand withdrawAliceFailed = new WithdrawCommand(account1, 1500.0);
-        atm.executeOP(withdrawAliceFailed);
+        System.out.println("--- Transaction 4: Miku Tries to Withdraw $1500 (Insufficient Funds) ---");
+        WithdrawCommand withdrawMikuFailed = new WithdrawCommand(account1, 1500.0);
+        atm.executeOP(withdrawMikuFailed);
         atm.executeOP(new CheckBalanceCommand(account1));
         System.out.println();
 
-        System.out.println("--- Undoing Last Successful Transaction (Alice's Transfer) ---");
-        atm.undoOP(transferAliceToBob); // This will call undo on the last pushed command (transferAliceToBob)
+        System.out.println("--- Undoing Last Successful Transaction (Miku's Transfer) ---");
+        atm.undoOP(transferMikuToPepe); 
         atm.executeOP(new CheckBalanceCommand(account1));
         atm.executeOP(new CheckBalanceCommand(account2));
         System.out.println();
         
-        System.out.println("--- Undoing Bob's Withdrawal ---");
-        atm.undoOP(withdrawBob);
+        System.out.println("--- Undoing Pepe's Withdrawal ---");
+        atm.undoOP(withdrawPepe);
         atm.executeOP(new CheckBalanceCommand(account2));
         System.out.println();
     }
